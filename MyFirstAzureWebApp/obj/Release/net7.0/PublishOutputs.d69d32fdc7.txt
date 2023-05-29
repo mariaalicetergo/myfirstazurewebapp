@@ -1,0 +1,7 @@
+C:\Users\MariaTergolina\source\repos\MyFirstAzureWebApp\MyFirstAzureWebApp\obj\Release\net7.0\PubTmp\Out\MyFirstAzureWebApp.exe
+C:\Users\MariaTergolina\source\repos\MyFirstAzureWebApp\MyFirstAzureWebApp\obj\Release\net7.0\PubTmp\Out\appsettings.Development.json
+C:\Users\MariaTergolina\source\repos\MyFirstAzureWebApp\MyFirstAzureWebApp\obj\Release\net7.0\PubTmp\Out\appsettings.json
+C:\Users\MariaTergolina\source\repos\MyFirstAzureWebApp\MyFirstAzureWebApp\obj\Release\net7.0\PubTmp\Out\MyFirstAzureWebApp.dll
+C:\Users\MariaTergolina\source\repos\MyFirstAzureWebApp\MyFirstAzureWebApp\obj\Release\net7.0\PubTmp\Out\MyFirstAzureWebApp.deps.json
+C:\Users\MariaTergolina\source\repos\MyFirstAzureWebApp\MyFirstAzureWebApp\obj\Release\net7.0\PubTmp\Out\MyFirstAzureWebApp.runtimeconfig.json
+C:\Users\MariaTergolina\source\repos\MyFirstAzureWebApp\MyFirstAzureWebApp\obj\Release\net7.0\PubTmp\Out\MyFirstAzureWebApp.pdb
