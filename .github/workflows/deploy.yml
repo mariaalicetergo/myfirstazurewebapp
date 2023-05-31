@@ -1,0 +1,28 @@
+name: ASP.NET Web App Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x' # Replace with the desired .NET version
+
+    - name: Build and publish
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+    - name: Deploy to Azure App Service
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: myFirstAzureWebAppYML # Replace with your Azure App Service name
+        publish-profile: ${{ secrets.AZURE_APP_SERVICE_PUBLISH_PROFILE }}
