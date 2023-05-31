@@ -39,38 +39,60 @@ Click "Add secret" to save the secret.
 Step 5: Create a GitHub Actions Workflow
 In your GitHub repository, navigate to the "Actions" tab.
 Click on the "Set up a workflow yourself" or "New workflow" button.
-Create a new YAML file (e.g., deploy.yml) and copy the following sample code:
-yaml
-Copy code
-name: ASP.NET Web App Deployment
+Create a new YAML file (e.g., deploy.yml) and copy the following sample cname: Build and deploy ASP.Net Core app to Azure Web App - MyFirstAzureWebApp20230528234401
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
-    runs-on: windows-latest
-    
+  build:
+    runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '6.0.x' # Replace with the desired .NET version
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.x'
+          include-prerelease: true
 
-    - name: Build and publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
 
-    - name: Deploy to Azure App Service
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: <Your-App-Name> # Replace with your Azure App Service name
-        publish-profile: ${{ secrets.AZURE_APP_SERVICE_PUBLISH_PROFILE }}
-Replace <Your-App-Name> in the app-name field with your Azure App Service name.
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'MyFirstAzureWebApp20230528234401'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_824D782AA36D44BEA6A12AEED4F6A633 }}
+          package: .
 Save the deploy.yml file.
   
 Step 6: Trigger the CI/CD Pipeline
