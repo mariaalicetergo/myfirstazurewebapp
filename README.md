@@ -72,7 +72,7 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
-  deploy:
+    deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
