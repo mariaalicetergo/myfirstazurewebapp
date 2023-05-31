@@ -39,17 +39,19 @@ Click "Add secret" to save the secret.
 Step 5: Create a GitHub Actions Workflow
 In your GitHub repository, navigate to the "Actions" tab.
 Click on the "Set up a workflow yourself" or "New workflow" button.
-Create a new YAML file (e.g., deploy.yml) and copy the following sample cname: Build and deploy ASP.Net Core app to Azure Web App - MyFirstAzureWebApp20230528234401
+Create a new YAML file (e.g., deploy.yml) and copy the following sample:
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+    name: Build and deploy ASP.Net Core app to Azure Web App - MyFirstAzureWebApp20230528234401
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+    on:
+      push:
+        branches:
+          - main
+      workflow_dispatch:
+
+    jobs:
+      build:
+        runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -72,10 +74,10 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
-    deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
+     deploy:
+        runs-on: ubuntu-latest
+        needs: build
+      environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
